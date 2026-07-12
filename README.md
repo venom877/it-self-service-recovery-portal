@@ -1,4 +1,4 @@
-# BNP Paribas WFH-PC Self-Healing & Diagnostic Agent
+#  WFH-PC Self-Healing & Diagnostic Agent
 ## Service Desk Self-Service & pre-login Optimization Hub (Windows 11)
 
 This documentation provides an executive and technical summary of the WFH-PC self-service repair agent designed for remote Windows 11 workstations. It is engineered with a **0.0% background execution footprint** (on-demand standby) and restores user productivity in under 12 seconds with zero service desk queue delays.
@@ -17,7 +17,7 @@ This documentation provides an executive and technical summary of the WFH-PC sel
 
 ### 1. Core Features & Solver Modules
 
-The application is structured into a unified, single-screen interactive layout with instant sub-navigation pages, themed in accordance with the corporate BNP Paribas visual guidelines (emerald branding, clear indicators, high-contrast light layout).
+The application is structured into a unified, single-screen interactive layout with instant sub-navigation pages, themed in accordance with the corporate  visual guidelines (emerald branding, clear indicators, high-contrast light layout).
 
 #### 🛠️ Module A: Storage Booster & Cache Purge
 * **Symptom Fixed:** Low disk space warning, sluggish file explorers, browser lockups.
@@ -102,4 +102,4 @@ The application is engineered with a high-fidelity light visual interface paired
 * **Deployment CLI Block:** Syntactically correct administrative PowerShell script codeboxes that can be copied with one click for Group Policy (GPO) or Intune packaging.
 
 ---
-*Created and maintained by the BNP Paribas Corporate IT Operations Team.*
+*Created and maintained by the  Corporate IT Operations Team.*
