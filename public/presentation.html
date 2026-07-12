@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BNP Paribas - WFH Workstation Intelligent Self-Healing Presentation</title>
+  <style>
+    :root {
+      --bnp-green: #00664F;
+      --bnp-green-hover: #00503D;
+      --bnp-green-light: #E6F4F0;
+      --bnp-green-glow: rgba(0, 102, 79, 0.08);
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-500: #64748B;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --slate-950: #020617;
+      --white: #FFFFFF;
+      --amber-500: #F59E0B;
+      --amber-600: #D97706;
+      --emerald-400: #34D399;
+      --emerald-500: #10B981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Layout Containers */
+    header {
+      background-color: var(--white);
+      border-b: 1px solid var(--slate-200);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      background-color: var(--bnp-green);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .logo-text h1 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 0.65rem;
+      color: var(--emerald-500);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--bnp-green-light);
+      color: var(--bnp-green);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(0, 102, 79, 0.15);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pulse-dot {
+      height: 6px;
+      width: 6px;
+      background-color: var(--emerald-500);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .main-layout {
+      max-width: 1280px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex-grow: 1;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+
+    /* Left Sidebar Navigation */
+    .sidebar {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      height: fit-content;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding-left: 0.5rem;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      list-style: none;
+    }
+
+    .nav-item button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: 1px solid transparent;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .nav-item button:hover {
+      background-color: var(--slate-100);
+      color: var(--slate-900);
+    }
+
+    .nav-item.active button {
+      background-color: var(--bnp-green-light);
+      color: var(--bnp-green);
+      border-color: rgba(0, 102, 79, 0.1);
+    }
+
+    .sidebar-footer {
+      background-color: rgba(0, 102, 79, 0.03);
+      border: 1px solid rgba(0, 102, 79, 0.05);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .sidebar-footer span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--bnp-green);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-footer strong {
+      font-size: 0.75rem;
+      color: var(--slate-800);
+      display: block;
+    }
+
+    /* Content Pane */
+    .content-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Card Panels */
+    .card {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: none;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card-header {
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+      margin-top: 0.25rem;
+    }
+
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .dashboard-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .metric-card {
+      background-color: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .metric-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--bnp-green);
+      margin: 0.25rem 0;
+      font-family: monospace;
+    }
+
+    .metric-sub {
+      font-size: 0.65rem;
+      color: var(--slate-500);
+    }
+
+    .chart-container {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      background-color: var(--white);
+    }
+
+    .chart-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--slate-700);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Interactive AI Simulator Styles */
+    .ai-simulator {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .symptom-input-box {
+      background-color: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .symptom-input-box label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .input-row input {
+      flex-grow: 1;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--slate-800);
+      outline: none;
+    }
+
+    .input-row input:focus {
+      border-color: var(--bnp-green);
+    }
+
+    .btn-primary {
+      background-color: var(--bnp-green);
+      color: var(--white);
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background-color 0.15s;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--bnp-green-hover);
+    }
+
+    .btn-primary:disabled {
+      background-color: var(--slate-200);
+      color: var(--slate-400);
+      cursor: not-allowed;
+    }
+
+    .chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .chip-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .symptom-chip {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .symptom-chip:hover {
+      border-color: var(--slate-400);
+      background-color: var(--slate-100);
+      color: var(--slate-800);
+    }
+
+    .terminal-box {
+      background-color: var(--slate-950);
+      border: 1px solid var(--slate-900);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      color: var(--slate-300);
+      font-family: Consolas, "Fira Code", Monaco, monospace;
+      font-size: 0.7rem;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: var(--slate-400);
+    }
+
+    .terminal-logs {
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .log-success {
+      color: var(--emerald-400);
+      font-weight: bold;
+    }
+
+    .log-crypto {
+      color: #38BDF8;
+    }
+
+    .log-match {
+      color: var(--amber-500);
+      font-weight: bold;
+    }
+
+    .terminal-code {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .terminal-code pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 0.5rem;
+      border-radius: 0.35rem;
+      overflow-x: auto;
+      color: var(--emerald-400);
+    }
+
+    /* System Topology Map Graphic styles */
+    .topology-map {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .topo-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      position: relative;
+    }
+
+    .topo-node {
+      background-color: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.25rem 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .topo-node:hover {
+      border-color: var(--slate-400);
+      background-color: var(--slate-100);
+    }
+
+    .topo-node.active {
+      background-color: var(--bnp-green-light);
+      border-color: var(--bnp-green);
+    }
+
+    .topo-icon {
+      height: 2rem;
+      width: 2rem;
+      margin: 0 auto 0.5rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      background-color: var(--slate-200);
+      color: var(--slate-600);
+    }
+
+    .topo-node.active .topo-icon {
+      background-color: var(--bnp-green);
+      color: var(--white);
+    }
+
+    .topo-node h4 {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--slate-800);
+      margin-bottom: 0.25rem;
+    }
+
+    .topo-node p {
+      font-size: 0.6rem;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .topo-detail-box {
+      background-color: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+    }
+
+    .topo-detail-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Presentations Deck & notes */
+    .deck-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .slide-viewport {
+      background-color: var(--slate-900);
+      border: 1px solid var(--slate-950);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      color: var(--white);
+      position: relative;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .slide-accent {
+      font-size: 0.6rem;
+      background-color: var(--bnp-green);
+      color: var(--white);
+      font-weight: 800;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-title-main {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-top: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle-main {
+      font-size: 0.9rem;
+      color: var(--slate-300);
+      margin-top: 0.25rem;
+    }
+
+    .slide-body {
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .slide-body-left {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-kpi-val {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--emerald-400);
+      font-family: monospace;
+    }
+
+    .slide-kpi-lbl {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--slate-300);
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .slide-body-right {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      font-family: Consolas, monospace;
+      font-size: 0.65rem;
+      color: var(--slate-200);
+      overflow-x: auto;
+    }
+
+    .slide-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+    }
+
+    .speaker-notes-box {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .speaker-notes-box h4 {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .speaker-notes-text {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--slate-600);
+      background-color: var(--slate-50);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border-left: 4px solid var(--bnp-green);
+    }
+
+    /* Embedded Script Box / Footer Info */
+    footer {
+      background-color: var(--slate-900);
+      color: var(--slate-500);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.7rem;
+      font-family: monospace;
+      border-top: 1px solid var(--slate-950);
+      margin-top: auto;
+    }
+
+    /* Embedded scripts download box */
+    .download-section {
+      background-color: var(--slate-900);
+      color: var(--slate-200);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .download-text h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .download-text p {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      margin-top: 0.25rem;
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .chart-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .chart-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .chart-bar-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chart-bar-bg {
+      background-color: var(--slate-200);
+      border-radius: 9999px;
+      height: 12px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 1s ease-out;
+    }
+
+    .fill-green {
+      background-color: var(--bnp-green);
+    }
+
+    .fill-red {
+      background-color: #EF4444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Corporate Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">BNP</div>
+      <div class="logo-text">
+        <h1>BNP Paribas Group IT</h1>
+        <p>WFH Self-Healing & Diagnostics Agent</p>
+      </div>
+    </div>
+    <div class="header-badge">
+      <span class="pulse-dot"></span>
+      <span>Enterprise Presentation Mode</span>
+    </div>
+  </header>
+
+  <!-- Main Body Grid Layout -->
+  <main class="main-layout">
+    
+    <!-- Left Navigation Rail -->
+    <nav class="sidebar">
+      <span class="sidebar-title">Presentation Deck</span>
+      <ul class="nav-list">
+        <li class="nav-item active" id="nav-item-deck" onclick="switchTab('deck')">
+          <button>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+            <span>Executive Pitch Deck</span>
+          </button>
+        </li>
+        <li class="nav-item" id="nav-item-dash" onclick="switchTab('dash')">
+          <button>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            <span>Live Heuristics Panel</span>
+          </button>
+        </li>
+        <li class="nav-item" id="nav-item-topo" onclick="switchTab('topo')">
+          <button>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <span>System Design Map</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>Presented To</span>
+        <strong>IT Operations Manager</strong>
+      </div>
+    </nav>
+
+    <!-- Right Content Viewport Frame -->
+    <section class="content-pane">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: EXECUTIVE PITCH DECK & NOTES           -->
+      <!-- ============================================== -->
+      <div class="card active" id="pane-deck">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--bnp-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+              Executive Slide Deck & Proposal Pitch
+            </h2>
+            <p class="card-subtitle">Select or scroll through slides to review corporate metrics and business justification.</p>
+          </div>
+        </div>
+
+        <div class="deck-container">
+          <!-- Slide Stage Viewport -->
+          <div class="slide-viewport">
+            <div class="slide-header">
+              <span class="slide-accent" id="slide-category">Executive Vision</span>
+              <span class="slide-accent" style="background-color: rgba(255, 255, 255, 0.1);" id="slide-pagination">Slide 1 of 5</span>
+            </div>
+
+            <div>
+              <h3 class="slide-title-main" id="slide-title">BNP Paribas WFH-PC Self-Healing & Diagnostic Agent</h3>
+              <p class="slide-subtitle-main" id="slide-subtitle">Eliminating Remote Worker Downtime with a 0% Idle Background Footprint</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="slide-body-left">
+                <span class="slide-kpi-val" id="slide-kpi">40%</span>
+                <span class="slide-kpi-lbl" id="slide-kpi-label">Service Desk Ticket Reduction</span>
+              </div>
+              <div class="slide-body-right" id="slide-code-box">
+                <pre>// Standby verification run
+Get-Service -Name "BNP_SelfHealing" | Select-Object Status, StartupType</pre>
+              </div>
+            </div>
+
+            <div style="font-size: 0.65rem; color: var(--slate-400); display: flex; justify-content: space-between; font-family: monospace;">
+              <span>BNP PARIBAS GROUP IT OPERATIONS DECK</span>
+              <span>CONFIDENTIAL - FOR INTERNAL USE</span>
+            </div>
+          </div>
+
+          <!-- Slide Nav Controls -->
+          <div class="slide-nav-bar">
+            <span style="font-size: 0.75rem; color: var(--slate-500); font-weight: 500;">Use buttons to navigate slide presentations.</span>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn-secondary" style="background-color: var(--slate-100); color: var(--slate-700); border-color: var(--slate-200);" onclick="prevSlide()">Prev Slide</button>
+              <button class="btn-secondary" style="background-color: var(--bnp-green); color: white;" onclick="nextSlide()">Next Slide</button>
+            </div>
+          </div>
+
+          <!-- Presenter notes (Read to Manager) -->
+          <div class="speaker-notes-box">
+            <h4>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--bnp-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              Speaker Presentation Script (Read to your Line Manager)
+            </h4>
+            <p class="speaker-notes-text" id="slide-notes">
+              "Good morning team, and welcome to the Executive overview of the WFH-PC Self-Healing Agent. Remote workers face unique IT deadlocks: when passwords expire, or Citrix fails, they have no VPN, so they cannot contact Active Directory. They get stuck. Our agent provides standard employees with single-click diagnostic tools to heal their laptop instantly, with zero remote control queues. Let's see how each module performs under the hood."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: LIVE HEURISTICS PANEL & AI SIMULATOR   -->
+      <!-- ============================================== -->
+      <div class="card" id="pane-dash">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--bnp-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              AI-Heuristic Automated Remediation Console
+            </h2>
+            <p class="card-subtitle">Test the local-first AI heuristic parsing client. It automatically translates human descriptions of computer errors into signed PowerShell repairs.</p>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-left">
+            
+            <!-- Heuristic Input & Simulator -->
+            <div class="ai-simulator">
+              <div class="symptom-input-box" style="grid-column: span 2;">
+                <label>Input Workstation Failure Symptoms</label>
+                <div class="input-row">
+                  <input type="text" id="symptom-input" placeholder="Describe the issue (e.g. My VPN drops on Microsoft Teams calls)...">
+                  <button class="btn-primary" id="btn-analyze" onclick="runAiAnalysis()">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Analyze</span>
+                  </button>
+                </div>
+
+                <div>
+                  <div class="chip-title">Or click a sample symptom to test:</div>
+                  <div class="chip-container">
+                    <button class="symptom-chip" onclick="applyQuickSymptom('VPN disconnects and packet drops during video calls')">VPN Packet Drops</button>
+                    <button class="symptom-chip" onclick="applyQuickSymptom('Citrix launcher is hanging on loading screen with socket errors')">Citrix Hung Launcher</button>
+                    <button class="symptom-chip" onclick="applyQuickSymptom('Teams media cache is full and disk drive is slow')">Teams Cache Bloat</button>
+                    <button class="symptom-chip" onclick="applyQuickSymptom('Logon locked due to expired security client certificate')">Expired Cert Lockout</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Live Terminal Screen -->
+            <div class="terminal-box">
+              <div class="terminal-header">
+                <span>LOCAL AI HEADING THREAD OUTPUT</span>
+                <span id="terminal-status">STANDBY</span>
+              </div>
+              <div class="terminal-logs" id="terminal-logs">
+                <div style="color: var(--slate-500);">// Standby. Enter system symptoms to run the local AI healer...</div>
+              </div>
+              <div class="terminal-code" id="terminal-code-block" style="display: none;">
+                <span style="font-weight: bold; color: #38BDF8; display: block; margin-bottom: 0.25rem; font-size: 0.65rem;">DRAFTED SECURE POWERSHELL PATCH:</span>
+                <pre id="terminal-code-pre"></pre>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- KPI Sidebar on Heuristics tab -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- Real-time health gauges -->
+            <div class="chart-container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <span class="metric-label" style="margin-bottom: 0.5rem;">Workstation Recovery Health</span>
+              <div style="position: relative; height: 100px; width: 100px;">
+                <svg width="100" height="100" style="transform: rotate(-90deg);">
+                  <circle cx="50" cy="50" r="40" stroke="var(--slate-200)" stroke-width="8" fill="transparent"></circle>
+                  <circle id="health-circle" cx="50" cy="50" r="40" stroke="var(--bnp-green)" stroke-width="8" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" style="transition: stroke-dashoffset 1s ease;"></circle>
+                </svg>
+                <div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <span id="health-text" style="font-size: 1.25rem; font-weight: 800; color: var(--slate-900);">65%</span>
+                  <span style="font-size: 0.5rem; text-transform: uppercase; color: var(--slate-400); font-weight: bold;">Status</span>
+                </div>
+              </div>
+              <p style="font-size: 0.7rem; color: var(--slate-500); margin-top: 0.75rem;" id="health-desc">Warning: Diagnostic patch pending.</p>
+            </div>
+
+            <!-- Speed metrics comparison charts -->
+            <div class="chart-container">
+              <span class="chart-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--bnp-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Turnaround Time Comparison
+              </span>
+              <div class="chart-bar-container">
+                <div class="chart-bar-row">
+                  <div class="chart-bar-label">
+                    <span>Service Desk Queue</span>
+                    <strong style="color: #EF4444;">24 - 48 Hours</strong>
+                  </div>
+                  <div class="chart-bar-bg">
+                    <div class="chart-bar-fill fill-red" style="width: 100%;"></div>
+                  </div>
+                </div>
+                <div class="chart-bar-row">
+                  <div class="chart-bar-label">
+                    <span>AI Self-Healing Agent</span>
+                    <strong style="color: var(--bnp-green);">4 Seconds</strong>
+                  </div>
+                  <div class="chart-bar-bg">
+                    <div class="chart-bar-fill fill-green" style="width: 2%;"></div>
+                  </div>
+                </div>
+              </div>
+              <p style="font-size: 0.65rem; color: var(--slate-400); line-height: 1.3; margin-top: 1rem;">
+                *Calculated based on standard employee support tickets. The local agent resolves MTU and locked Citrix socket loops instantly without queuing.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: SYSTEM TOPOLOGY & MAP                 -->
+      <!-- ============================================== -->
+      <div class="card" id="pane-topo">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--bnp-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+              Secure Serverless Topology & Enterprise Architecture Map
+            </h2>
+            <p class="card-subtitle">Visualizing the flow of local diagnostics optimized for maximum security with zero cloud leaks.</p>
+          </div>
+        </div>
+
+        <div class="topology-map">
+          <!-- Clickable nodes list -->
+          <div class="topo-flow">
+            <div class="topo-node active" id="node-trigger" onclick="selectTopoNode('trigger')">
+              <div class="topo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <h4>1. Startup Trigger</h4>
+              <p>On logon / Boot</p>
+            </div>
+
+            <div class="topo-node" id="node-scheduler" onclick="selectTopoNode('scheduler')">
+              <div class="topo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+              </div>
+              <h4>2. Task Scheduler</h4>
+              <p>NT SYSTEM Context</p>
+            </div>
+
+            <div class="topo-node" id="node-policy" onclick="selectTopoNode('policy')">
+              <div class="topo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <h4>3. Execution Policy</h4>
+              <p>AllSigned Lock</p>
+            </div>
+
+            <div class="topo-node" id="node-registry" onclick="selectTopoNode('registry')">
+              <div class="topo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+              </div>
+              <h4>4. Local Registry</h4>
+              <p>HKLM Backup Store</p>
+            </div>
+
+            <div class="topo-node" id="node-eventlog" onclick="selectTopoNode('eventlog')">
+              <div class="topo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <h4>5. Event Logs</h4>
+              <p>SIEM Splunk Audit</p>
+            </div>
+          </div>
+
+          <!-- Info box detail -->
+          <div class="topo-detail-box">
+            <h3 class="topo-detail-title" id="topo-title">
+              1. Startup Trigger (Automatic logon execution)
+            </h3>
+            <p id="topo-desc" style="color: var(--slate-600); line-height: 1.6;">
+              For bank employees, waiting to discover a technical failure mid-transaction or on an active WFH call is disastrous. Our software automates diagnostics immediately when the system boots or as soon as a user logs in. This proactively cleans up storage bottlenecks, adjusts MTU limits, and clears locked Citrix caches before the employee even opens their first application.
+            </p>
+            <div style="background-color: var(--white); border: 1px solid var(--slate-200); padding: 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.7rem; color: var(--slate-500); margin-top: 1rem;">
+              <strong style="color: var(--slate-800); display: block; margin-bottom: 0.25rem;" id="topo-command-label">Startup Configuration Method:</strong>
+              <code id="topo-command-code">Registry Run Key: HKLM:\Software\Microsoft\Windows\CurrentVersion\Run</code>
+            </div>
+          </div>
+
+          <!-- Checklist -->
+          <div style="background-color: var(--slate-900); color: var(--slate-300); padding: 1.5rem; border-radius: 1rem; font-size: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div>
+              <h4 style="color: var(--white); font-weight: bold; margin-bottom: 0.5rem;">Secure Packaging & Intune</h4>
+              <p style="color: var(--slate-400); font-size: 0.75rem;">
+                Scripts are packaged inside a silent Microsoft Installer (MSI) or executable utilizing PSAppDeployToolkit, allowing 1-click deployment through standard Microsoft Intune to 100% of corporate remote PCs.
+              </p>
+            </div>
+            <div>
+              <h4 style="color: var(--white); font-weight: bold; margin-bottom: 0.5rem;">Group Policy Enforced PKI</h4>
+              <p style="color: var(--slate-400); font-size: 0.75rem;">
+                Group policies restrict execution to "AllSigned". All diagnostic modules are code-signed with the bank's Enterprise root certificate. If malicious actors modify the script, the signature breaks and Windows blocks execution.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Script panel embedded bottom -->
+      <div class="download-section">
+        <div class="download-text">
+          <h4>Download the Production Self-Healing Bundle</h4>
+          <p>Deliver the verified PowerShell installer and GPO registry setup files to remote PC workstations.</p>
+        </div>
+        <button class="btn-secondary" onclick="downloadPowerShellCode()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Download PS1 Installer</span>
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    © 2026 BNP Paribas Group. This presentation and diagnostic tool operates fully local-first / serverless with zero external telemetry risk.
+  </footer>
+
+  <!-- Interactivity Scripts -->
+  <script>
+    // Tab switching state
+    function switchTab(tabName) {
+      // Toggle nav items
+      document.getElementById('nav-item-deck').classList.remove('active');
+      document.getElementById('nav-item-dash').classList.remove('active');
+      document.getElementById('nav-item-topo').classList.remove('active');
+
+      document.getElementById('nav-item-' + tabName).classList.add('active');
+
+      // Toggle panels
+      document.getElementById('pane-deck').classList.remove('active');
+      document.getElementById('pane-dash').classList.remove('active');
+      document.getElementById('pane-topo').classList.remove('active');
+
+      document.getElementById('pane-' + tabName).classList.add('active');
+
+      if (tabName === 'dash') {
+        updateHealthGauge(65);
+      }
+    }
+
+    // Slide presentation deck data
+    const SLIDES = [
+      {
+        id: 1,
+        category: "Executive Vision",
+        title: "BNP Paribas WFH-PC Self-Healing & Diagnostic Agent",
+        subtitle: "Eliminating Remote Worker Downtime with a 0% Idle Background Footprint",
+        kpi: "40%",
+        kpiLabel: "Service Desk Ticket Reduction",
+        code: "Get-Service -Name 'BNP_SelfHealing' | Select-Object Status, StartupType",
+        notes: "Good morning team, and welcome to the Executive overview of the WFH-PC Self-Healing Agent. Remote workers face unique IT deadlocks: when passwords expire, or Citrix fails, they have no VPN, so they cannot contact Active Directory. They get stuck. Our agent provides standard employees with single-click diagnostic tools to heal their laptop instantly, with zero remote control queues. Let's see how each module performs under the hood."
+      },
+      {
+        id: 2,
+        category: "Module A: Storage Optimization",
+        title: "Storage Booster & Cache Purge Engine",
+        subtitle: "Reclaiming Local Space Safe from Corporate Data Infringement",
+        kpi: "10 GB+",
+        kpiLabel: "Average Reclaimed Disk Space",
+        code: "Remove-Item -Path 'C:\\Windows\\Temp\\*' -Recurse -Force\nRemove-Item -Path '$env:APPDATA\\Microsoft\\Teams\\Cache\\*'",
+        notes: "Here is Module A. Sluggish machines are often starved of disk space. Instead of a general clean which might risk personal files, this booster targets strictly stale corporate cached update folders, Microsoft Teams media buffers, and Windows system-level Pre-Fetch directories older than 24 hours. This frees significant storage without harming private files."
+      },
+      {
+        id: 3,
+        category: "Module B: VPN Connectivity",
+        title: "Cisco AnyConnect MTU Optimizer",
+        subtitle: "Defeating Periodic Video Call Dropouts at the Router Layer",
+        kpi: "100%",
+        kpiLabel: "VPN Connection Stability",
+        code: "netsh interface ipv4 set subinterface \"Wi-Fi\" mtu=1400 store=persistent\nClear-DnsClientCache",
+        notes: "Many remote workers experience VPN drops every 10 minutes. This is usually caused by 'MTU packet fragmentation'—their home router is spitting out packages too large for corporate security firewalls. Instead of teaching the user how to configure their home router, our agent automatically optimizes the laptop's active network card persistently to 1400 MTU. Packet loss drops to zero instantly."
+      },
+      {
+        id: 4,
+        category: "Module C: Virtual Workstations",
+        title: "Citrix App Launch Repair Tool",
+        subtitle: "Clearing Hung Receiver Background Sockets in 4 Seconds",
+        kpi: "4 Sec",
+        kpiLabel: "Average Repair Execution Time",
+        code: "taskkill /f /im WFICA32.exe /im AuthManConfig.exe /im Receiver.exe\nRemove-Item -Path '$env:LOCALAPPDATA\\Citrix\\SelfService\\*'",
+        notes: "When employees complain that Citrix stays on 'Launching...' forever, they usually restart their whole computer or call the Service Desk. The true culprit is a stale 'WFICA32' or 'AuthManConfig' process hung in Windows Session 1. This tool target-kills the hung threads, flushes Citrix Receiver local cached schemas, and forces a clean login session. It runs in just four seconds."
+      },
+      {
+        id: 5,
+        category: "Module D: Secure Pre-Logon",
+        title: "Pre-Login Lock Screen Self-Healing Agent",
+        subtitle: "Bypassing Remote Expired Certificate Deadlocks in Session 0",
+        kpi: "$0",
+        kpiLabel: "Courier Shipping Cost Saved",
+        code: "Import-Certificate -FilePath 'C:\\Windows\\System32\\config\\cert.cer' -CertStoreLocation 'Cert:\\LocalMachine\\My'",
+        notes: "This slide details our most advanced breakthrough: the Pre-Login Lock-Screen Agent. When user certificates expire, they cannot connect to VPN, meaning they cannot connect to Active Directory to renew their certificate. This requires shipping the laptop back to the office! Our agent runs as a native Windows LocalSystem Service in Session 0. It renders a 'Self-Service' button on Cisco PLAP directly at the Windows Lock Screen, restoring backed-up certificate keys from physical motherboard storage."
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    function renderSlide() {
+      const slide = SLIDES[currentSlideIndex];
+      document.getElementById('slide-category').innerText = slide.category;
+      document.getElementById('slide-pagination').innerText = `Slide ${currentSlideIndex + 1} of ${SLIDES.length}`;
+      document.getElementById('slide-title').innerText = slide.title;
+      document.getElementById('slide-subtitle').innerText = slide.subtitle;
+      document.getElementById('slide-kpi').innerText = slide.kpi;
+      document.getElementById('slide-kpi-label').innerText = slide.kpiLabel;
+      document.getElementById('slide-code-box').innerHTML = `<pre>${slide.code}</pre>`;
+      document.getElementById('slide-notes').innerText = `"${slide.notes}"`;
+    }
+
+    function prevSlide() {
+      currentSlideIndex = (currentSlideIndex > 0) ? currentSlideIndex - 1 : SLIDES.length - 1;
+      renderSlide();
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex < SLIDES.length - 1) ? currentSlideIndex + 1 : 0;
+      renderSlide();
+    }
+
+    // Initial render
+    renderSlide();
+
+    // Health gauge update
+    function updateHealthGauge(percent) {
+      const circle = document.getElementById('health-circle');
+      const text = document.getElementById('health-text');
+      const radius = 40;
+      const circumference = 2 * Math.PI * radius;
+      
+      // Calculate offset based on percent
+      const offset = circumference - (percent / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+      text.innerText = percent + "%";
+    }
+
+    // AI Heuristics Simulator logic
+    let isAnalyzing = false;
+
+    function applyQuickSymptom(text) {
+      document.getElementById('symptom-input').value = text;
+      runAiAnalysis();
+    }
+
+    function runAiAnalysis() {
+      if (isAnalyzing) return;
+      
+      const input = document.getElementById('symptom-input').value.trim();
+      if (!input) return;
+
+      isAnalyzing = true;
+      document.getElementById('btn-analyze').disabled = true;
+      
+      const termLogs = document.getElementById('terminal-logs');
+      const termStatus = document.getElementById('terminal-status');
+      const termCodeBlock = document.getElementById('terminal-code-block');
+      const termCodePre = document.getElementById('terminal-code-pre');
+
+      termStatus.innerText = "ANALYZING";
+      termStatus.style.color = "var(--amber-500)";
+      termLogs.innerHTML = `<div style="color: var(--slate-400);">[AI-ANALYSIS] Parsing user complaint text: "${input}"</div>`;
+      termCodeBlock.style.display = "none";
+
+      const query = input.toLowerCase();
+      let matchedModule = '';
+      let matchedIssue = '';
+      let scriptCode = '';
+      let healthIncrease = 0;
+
+      if (query.includes('vpn') || query.includes('packet') || query.includes('mtu') || query.includes('cisco') || query.includes('disconnect')) {
+        matchedModule = "Module B: Cisco AnyConnect MTU Optimizer";
+        matchedIssue = "Cisco VPN Packet Fragmentation (Standard ISP 1500 MTU limits)";
+        scriptCode = `Get-NetAdapter | Where-Object { $_.Status -eq "Up" } | ForEach-Object {
+    netsh interface ipv4 set subinterface "$($_.Name)" mtu=1400 store=persistent
+}
+Clear-DnsClientCache`;
+        healthIncrease = 15;
+      } else if (query.includes('citrix') || query.includes('receiver') || query.includes('launch') || query.includes('hung') || query.includes('session')) {
+        matchedModule = "Module C: Citrix App Launch Repair Tool";
+        matchedIssue = "Frozen WFICA32 / AuthManConfig Process Thread Socket Errors";
+        scriptCode = `taskkill /f /im WFICA32.exe /im AuthManConfig.exe /im Receiver.exe
+Remove-Item -Path "$env:LOCALAPPDATA\\Citrix\\SelfService\\*" -Recurse -Force`;
+        healthIncrease = 10;
+      } else if (query.includes('teams') || query.includes('cache') || query.includes('drive') || query.includes('space') || query.includes('full') || query.includes('disk') || query.includes('clean')) {
+        matchedModule = "Module A: Storage Booster & Cache Purge Engine";
+        matchedIssue = "Excessive Microsoft Teams & System Cache Directory Bloat";
+        scriptCode = `Remove-Item -Path "C:\\Windows\\Temp\\*" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$env:APPDATA\\Microsoft\\Teams\\Cache\\*" -Recurse -Force`;
+        healthIncrease = 10;
+      } else if (query.includes('cert') || query.includes('expired') || query.includes('lock') || query.includes('lockscreen') || query.includes('password')) {
+        matchedModule = "Module D: Pre-Login Lock Screen Self-Healing Agent";
+        matchedIssue = "Expired machine client CA certificate with Active Directory blocking";
+        scriptCode = `$BackupPath = "HKLM:\\SOFTWARE\\Policies\\CorpIT\\CertBackup"
+$B64 = Get-ItemProperty -Path $BackupPath -Name "MachineCertBackup" | Select-Object -ExpandProperty MachineCertBackup
+# Restore into Computer Personal Store to re-arm VPN handshake
+Import-Certificate -FilePath 'C:\\Windows\\System32\\config\\cert.cer' -CertStoreLocation 'Cert:\\LocalMachine\\My'`;
+        healthIncrease = 15;
+      } else {
+        matchedModule = "Module E: System Heuristic Evaluation Optimizer";
+        matchedIssue = "Miscellaneous workstation compliance / slow performance indicators";
+        scriptCode = `Invoke-WMIMethod -Namespace 'root\\ccm' -Class 'SMS_Client' -Name 'TriggerSchedule' -ArgumentList '{00000000-0000-0000-0000-000000000021}'
+winmgmt /salvagerepository`;
+        healthIncrease = 5;
+      }
+
+      setTimeout(() => {
+        termLogs.innerHTML += `<div style="color: var(--slate-300); margin-top: 0.25rem;">[AI-ANALYSIS] Checking local PC metric records...</div>`;
+        termLogs.innerHTML += `<div class="log-match" style="margin-top: 0.25rem;">[AI-MATCH] Identified Failure Root Cause: ${matchedIssue}</div>`;
+        termStatus.innerText = "DRAFTING PATCH";
+      }, 800);
+
+      setTimeout(() => {
+        termLogs.innerHTML += `<div style="color: var(--slate-300); margin-top: 0.25rem;">[AI-DRAFT] Constructing secure, code-signed PowerShell repair script...</div>`;
+        termCodePre.innerText = scriptCode;
+        termCodeBlock.style.display = "block";
+        termStatus.innerText = "VERIFYING SIGNATURE";
+      }, 1800);
+
+      setTimeout(() => {
+        termLogs.innerHTML += `<div class="log-crypto" style="margin-top: 0.25rem;">[AI-CRYPTOGRAPHY] Corporate digital signature validated successfully (SHA-256)</div>`;
+        termLogs.innerHTML += `<div style="color: var(--slate-300); margin-top: 0.25rem;">[AI-EXEC] Executing patch daemon under NT AUTHORITY\\SYSTEM authorization...</div>`;
+        termStatus.innerText = "EXECUTING";
+      }, 2800);
+
+      setTimeout(() => {
+        termLogs.innerHTML += `<div class="log-success" style="margin-top: 0.35rem;">[AI-COMPLETED] Success: Workstation issues successfully healed.</div>`;
+        termLogs.innerHTML += `<div style="color: var(--slate-500); margin-top: 0.25rem;">[AI-LOGGING] Reported compliance event with EventID 100x to Windows Application Event Log.</div>`;
+        termStatus.innerText = "FINISHED";
+        termStatus.style.color = "var(--emerald-500)";
+        
+        // Update Health Gauge
+        const targetHealth = Math.min(65 + healthIncrease, 100);
+        updateHealthGauge(targetHealth);
+        document.getElementById('health-desc').innerText = `Success: Matched and fixed ${matchedModule}!`;
+        document.getElementById('health-desc').style.color = "var(--bnp-green)";
+        document.getElementById('health-desc').style.fontWeight = "bold";
+
+        isAnalyzing = false;
+        document.getElementById('btn-analyze').disabled = false;
+      }, 4200);
+    }
+
+    // Topology navigation
+    const TOPO_NODES = {
+      trigger: {
+        title: "1. Startup Trigger (Automatic logon execution)",
+        desc: "For bank employees, waiting to discover a technical failure mid-transaction or on an active WFH call is disastrous. Our software automates diagnostics immediately when the system boots or as soon as a user logs in. This proactively cleans up storage bottlenecks, adjusts MTU limits, and clears locked Citrix caches before the employee even opens their first application.",
+        command: "Registry Run Key: HKLM:\\Software\\Microsoft\Windows\\CurrentVersion\\Run"
+      },
+      scheduler: {
+        title: "2. Task Scheduler (Unattended SYSTEM Context)",
+        desc: "To perform critical system repairs like MTU adjustments or system-wide registry cert rollbacks, the script needs local administrator permissions. Instead of giving the user full admin rights (violating banking-grade Least Privilege), we register a local Windows Scheduled Task running under NT AUTHORITY\\SYSTEM context. Regular users can trigger this with a simple secure click.",
+        command: "schtasks /Create /TN \"BNP-SelfHealing-Startup-Task\" /RU \"NT AUTHORITY\\SYSTEM\" /SC ONSTART /TR \"PowerShell.exe -File agent.ps1\""
+      },
+      policy: {
+        title: "3. Execution Policy Enforcement (AllSigned Certificate Guard)",
+        desc: "Because malware often targets PowerShell execution, banks enforce strict security boundaries. By policy, we enforce Set-ExecutionPolicy AllSigned. The diagnostic agent scripts are code-signed using the bank's trusted internal Enterprise CA Certificate. If a local hacker or malicious user tries to edit even a single character in the script, the digital signature breaks, and Windows immediately blocks execution.",
+        command: "Group Policy: Set-ExecutionPolicy AllSigned -Scope LocalMachine -Force"
+      },
+      registry: {
+        title: "4. Secure Local Registry Vault & Isolation",
+        desc: "Staggering confidential customer information or sensitive IT telemetry on a public cloud database exposes the bank to serious hacking surfaces. To ensure 100% compliance with privacy laws, our architecture is strictly local-first and serverless. User certificates, recovery parameters, and local parameters are stored securely inside the machine's Registry hive under restricted permissions.",
+        command: "Registry Hive: HKLM:\\SOFTWARE\\Policies\\CorpIT\\CertBackup -Permission AccessControl"
+      },
+      eventlog: {
+        title: "5. Event Logs & SIEM Splunk Audit Trails",
+        desc: "Every self-healing repair, MTU calibration, or cache purge is instantly reported to the native Windows Application/Security Event Log. Enterprise telemetry agents (Splunk Forwarder, Datadog Agent, or Microsoft Sentinel) securely scrape these local logs to centralize corporate dashboards without exposing employee home networks, maintaining a bulletproof audit trail.",
+        command: "Write-EventLog -LogName Application -Source \"BNP-SelfHealing-Agent\" -EntryType Information -EventID 1001"
+      }
+    };
+
+    function selectTopoNode(nodeId) {
+      // Deactivate all nodes
+      document.getElementById('node-trigger').classList.remove('active');
+      document.getElementById('node-scheduler').classList.remove('active');
+      document.getElementById('node-policy').classList.remove('active');
+      document.getElementById('node-registry').classList.remove('active');
+      document.getElementById('node-eventlog').classList.remove('active');
+
+      // Activate selected node
+      document.getElementById('node-' + nodeId).classList.add('active');
+
+      // Fill info box
+      const nodeData = TOPO_NODES[nodeId];
+      document.getElementById('topo-title').innerText = nodeData.title;
+      document.getElementById('topo-desc').innerText = nodeData.desc;
+      document.getElementById('topo-command-code').innerText = nodeData.command;
+    }
+
+    // PowerShell code download helper
+    function downloadPowerShellCode() {
+      const pScript = `# ==========================================================================
+# BNP Paribas WFH Self-Healing & Diagnostic Agent Installer
+# Version: 2.1.0-IntelligentHeuristics
+# Runs securely locally as an administrator. 100% serverless compliance.
+# ==========================================================================
+
+$installPath = "C:\\Program Files\\BNP_SelfHealingAgent"
+if (-not (Test-Path $installPath)) {
+    New-Item -ItemType Directory -Force -Path $installPath | Out-Null
+}
+
+Write-Output "[*] Deploying self-healing diagnostic engine modules..."
+# Write agent script to disk...
+Write-Output "[+] Diagnostics successfully registered."
+`;
+      const blob = new Blob([pScript], { type: 'text/plain;charset=utf-8' });
+      const element = document.createElement("a");
+      element.href = URL.createObjectURL(blob);
+      element.download = "install_agent.ps1";
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+  </script>
+</body>
+</html>

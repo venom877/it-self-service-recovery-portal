@@ -1,0 +1,6 @@
+{
+  "name": "IT Self-Service Recovery Portal",
+  "description": "An intuitive, 1-click self-service diagnostic and PC repair utility for remote and office employees to fix disk space, Cisco VPN dropouts, and Citrix virtual machine boot hangs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
