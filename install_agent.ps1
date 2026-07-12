@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    BNP Paribas WFH PC Self-Healing Agent Deployment Script.
+     WFH PC Self-Healing Agent Deployment Script.
 .DESCRIPTION
     This script automates the installation, registration, and local launch of the WFH PC Self-Healing Agent 
     on standard corporate endpoints running Windows 10/11. It sets up the local application shortcut 
@@ -17,7 +17,7 @@ $Host.UI.RawUI.ForegroundColor = "Green"
 $Host.UI.RawUI.BackgroundColor = "Black"
 
 Write-Output "=========================================================================="
-Write-Output "               BNP PARIBAS GROUP CLIENT SYSTEMS ENGINEERING               "
+Write-Output "                GROUP CLIENT SYSTEMS ENGINEERING               "
 Write-Output "         WFH PC SELF-HEALING & DIAGNOSTIC AGENT LOCAL DEPLOYMENT          "
 Write-Output "=========================================================================="
 Write-Output ""
@@ -66,7 +66,7 @@ try {
     $Shortcut = $WshShell.CreateShortcut($shortcutPath)
     # Configure shortcut to open the active development URL directly
     $Shortcut.TargetPath = "https://ais-pre-whhvrtjr5z7f3lci5bcb5s-595498240768.asia-east1.run.app"
-    $Shortcut.Description = "BNP Paribas WFH PC Self-Healing Agent & Diagnostic Dashboard"
+    $Shortcut.Description = " WFH PC Self-Healing Agent & Diagnostic Dashboard"
     $Shortcut.WorkingDirectory = $installPath
     $Shortcut.Save()
     Write-Output "[+] Created Public Desktop Shortcut: $shortcutPath"
